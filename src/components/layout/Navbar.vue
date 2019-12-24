@@ -2,7 +2,7 @@
     <div class='navbar bg-primary'>
         <ul>
             <li>
-                <a>Activities</a>
+                <router-link to="/">Activities</router-link>
             </li>
             <li>
                 <a>Mylist</a>
