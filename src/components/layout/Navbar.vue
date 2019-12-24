@@ -5,7 +5,7 @@
                 <router-link to="/">Activities</router-link>
             </li>
             <li>
-                <a>Mylist</a>
+                <router-link to="/mylist">Mylist</router-link>
             </li>
         </ul>
     </div>
