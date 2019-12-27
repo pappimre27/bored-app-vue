@@ -2,6 +2,7 @@
     <form class='grid-2'>
         <div class='flex-container'>
             <h3>You should</h3>
+            {{activityDesc}}
             <textarea
                     class='l-input'
                     name='activityDesc'
@@ -21,7 +22,6 @@
                 <div class='form-group'>
                     <label>Type</label>
                     <select name='type' v-model="type">
-                        <option>{{type}}</option>
                         <option v-bind:key="activity" v-for="activity in activityTypes">{{activity}}</option>
                     </select>
                 </div>
@@ -61,11 +61,13 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex';
+
     export default {
         name: "Activity",
         data() {
             return {
-                activityDesc: '',
+                activityDesc: "",
                 type: "Test",
                 participants: 0,
                 price: 0,
@@ -81,6 +83,23 @@
                     'busywork'
                 ]
             }
+        },
+        methods: {
+            ...mapActions(['fetchRandom'])
+        },
+        computed: {
+            ...mapGetters(['current'])
+        },
+        async created() {
+            await this.fetchRandom();
+            // eslint-disable-next-line no-console
+            this.activityDesc = this.current.activity;
+            this.type = this.current.type;
+            this.participants = this.current.participants;
+            this.price = this.current.price;
+        },
+        beforeMount() {
+            this.activityTypes.filter(activity => activity !== this.type);
         }
     }
 </script>
