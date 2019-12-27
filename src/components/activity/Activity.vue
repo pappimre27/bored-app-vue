@@ -12,7 +12,6 @@
                     class='btn btn-block btn-primary'
                     type='submit'
                     v-bind:style="{backgroundColor: '#dc3545'}"
-                    v-on:click="saveForLater"
                     value='Save for later'
             />
         </div>
@@ -38,10 +37,10 @@
                 <div class='form-group'>
                     <label>Budget</label>
                     <input
-                            max="1"
-                            min="0"
+                            max=1
+                            min=0
                             name='price'
-                            step="0.1"
+                            step=0.1
                             type='range'
                             v-model="price"
                     />
