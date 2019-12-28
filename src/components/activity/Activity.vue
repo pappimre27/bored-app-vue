@@ -2,7 +2,6 @@
     <form class='grid-2'>
         <div class='flex-container'>
             <h3>You should</h3>
-            {{activityDesc}}
             <textarea
                     class='l-input'
                     name='activityDesc'
