@@ -7,7 +7,8 @@ const state = {
 };
 
 const getters = {
-    current: (state) => state.current
+    current: (state) => state.current,
+    activities: (state) => state.activities
 };
 
 const actions = {
@@ -19,11 +20,23 @@ const actions = {
             // eslint-disable-next-line no-console
             console.log(e);
         }
+    },
+    saveActivity({commit}, activity) {
+        // eslint-disable-next-line no-console
+        console.log(activity);
+        commit('addActivity', activity);
+    },
+    deleteActivity({commit}, id) {
+        commit('filterActivity', id);
+        // eslint-disable-next-line no-console
+        console.log(id);
     }
 };
 
 const mutations = {
-    setRandomActivity: (state, activity) => (state.current = activity)
+    setRandomActivity: (state, activity) => (state.current = activity),
+    addActivity: (state, activity) => state.activities.unshift(activity),
+    filterActivity: (state, id) => state.activities = state.activities.filter(activity => activity.id !== id)
 };
 
 export default {

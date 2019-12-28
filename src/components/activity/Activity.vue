@@ -13,6 +13,7 @@
                     type='submit'
                     v-bind:style="{backgroundColor: '#dc3545'}"
                     value='Save for later'
+                    v-on:click.prevent="saveForLater"
             />
         </div>
         <div>
@@ -61,13 +62,14 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex';
+    import uuid from 'uuid';
 
     export default {
         name: "Activity",
         data() {
             return {
                 activityDesc: "",
-                type: "Test",
+                type: "",
                 participants: 0,
                 price: 0,
                 activityTypes: [
@@ -84,18 +86,31 @@
             }
         },
         methods: {
-            ...mapActions(['fetchRandom'])
+            ...mapActions(['fetchRandom', 'saveActivity']),
+            saveForLater() {
+                const {activityDesc, type, participants, price} = this.$data;
+                // eslint-disable-next-line no-console
+                // console.log(this.$data);
+                const activity = {
+                    id: uuid.v4(),
+                    activityDesc,
+                    type,
+                    participants,
+                    price
+                }
+                this.saveActivity(activity);
+            }
         },
         computed: {
             ...mapGetters(['current'])
         },
         async created() {
             await this.fetchRandom();
-            // eslint-disable-next-line no-console
-            this.activityDesc = this.current.activity;
-            this.type = this.current.type;
-            this.participants = this.current.participants;
-            this.price = this.current.price;
+            const {activity, type, participants, price} = this.current;
+            this.activityDesc = activity;
+            this.type = type;
+            this.participants = participants;
+            this.price = price;
         },
         beforeMount() {
             this.activityTypes.filter(activity => activity !== this.type);

@@ -9,8 +9,8 @@
             <tr>
                 <th>#</th>
                 <th>Activity</th>
-                <th>Participants</th>
-                <th>Budget</th>
+                <!--                <th>Participants</th>-->
+                <!--                <th>Budget</th>-->
                 <th>Delete</th>
             </tr>
             </thead>
@@ -19,13 +19,15 @@
             <tr v-bind:key="index" v-for="(activity, index) in activities">
                 <td>{{index + 1}}</td>
                 <td>{{activity.activityDesc}}</td>
-                <td>{{activity.participants}}</td>
-                <td v-if="activity.price <= 0.5">{{'cheap'}}</td>
-                <td v-else>{{'Expensive'}}</td>
+                <!--                <td>{{activity.participants}}</td>-->
+                <!--                <td v-if="activity.price <= 0.5">{{'cheap'}}</td>-->
+                <!--                <td v-else>{{'Expensive'}}</td>-->
                 <td>
                     <i
                             class='fa fa-check-circle'
-                            v-bind:style="{fontSize: '26px'}">
+                            v-bind:style="{fontSize: '26px'}"
+                            v-on:click="deleteActivity(activity.id)"
+                    >
                     </i>
                 </td>
             </tr>
@@ -41,13 +43,19 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from "vuex";
+
     export default {
         name: "Mylist",
         data() {
-            return {
-                activities: []
-            }
-        }
+            return {}
+        },
+        methods: {
+            ...mapActions(['deleteActivity'])
+        },
+        computed: {
+            ...mapGetters(['activities'])
+        },
     }
 </script>
 
