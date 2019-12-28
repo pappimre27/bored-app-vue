@@ -18,7 +18,12 @@
 
             <tr v-bind:key="index" v-for="(activity, index) in activities">
                 <td>{{index + 1}}</td>
-                <td>{{activity.activityDesc}}</td>
+                <td>
+                    <router-link
+                            v-bind:to="`/activity/${activity.id}`">
+                        {{activity.activityDesc}}
+                    </router-link>
+                </td>
                 <!--                <td>{{activity.participants}}</td>-->
                 <!--                <td v-if="activity.price <= 0.5">{{'cheap'}}</td>-->
                 <!--                <td v-else>{{'Expensive'}}</td>-->
@@ -45,7 +50,7 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from "vuex";
+    import {mapActions, mapGetters} from "vuex";
 
     export default {
         name: "Mylist",
