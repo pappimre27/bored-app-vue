@@ -21,7 +21,8 @@
             <div v-bind:style="{minHeight: '300px'}">
                 <div class='form-group'>
                     <label>Type</label>
-                    <select name='type' v-model="type">
+                    <select name='type' v-model="type" v-on:change="handleChange($event)"
+                    >
                         <option v-bind:key="activity" v-for="activity in activityTypes">{{activity}}</option>
                     </select>
                 </div>
@@ -32,6 +33,7 @@
                             required
                             type='number'
                             v-model="participants"
+                            v-on:change="handleChange($event)"
                     />
                 </div>
                 <div class='form-group'>
@@ -43,6 +45,7 @@
                             step=0.1
                             type='range'
                             v-model="price"
+                            v-on:change="handleChange($event)"
                     />
                 </div>
                 <ul class='price-categories'>
@@ -61,8 +64,9 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import uuid from 'uuid';
+    import setActivity from "../../mixins/setActivity";
 
     export default {
         name: "Activity",
@@ -86,7 +90,7 @@
             }
         },
         methods: {
-            ...mapActions(['fetchRandom', 'saveActivity']),
+            ...mapActions(['fetchRandom', 'saveActivity', 'fetchByValue']),
             saveForLater() {
                 const {activityDesc, type, participants, price} = this.$data;
                 // eslint-disable-next-line no-console
@@ -99,6 +103,15 @@
                     price
                 }
                 this.saveActivity(activity);
+            },
+            async handleChange(e) {
+                const {name, value} = e.target;
+                const parameters = {
+                    name,
+                    value
+                }
+                await this.fetchByValue(parameters);
+                this.setCurrent();
             }
         },
         computed: {
@@ -106,15 +119,12 @@
         },
         async created() {
             await this.fetchRandom();
-            const {activity, type, participants, price} = this.current;
-            this.activityDesc = activity;
-            this.type = type;
-            this.participants = participants;
-            this.price = price;
+            this.setCurrent();
         },
         beforeMount() {
             this.activityTypes.filter(activity => activity !== this.type);
-        }
+        },
+        mixins: [setActivity]
     }
 </script>
 
