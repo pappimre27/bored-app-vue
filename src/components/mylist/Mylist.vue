@@ -36,7 +36,9 @@
         </table>
         <button
                 class='btn btn-primary btn-block'
-                v-bind:style="{backgroundColor: '#dc3545'}">
+                v-bind:style="{backgroundColor: '#dc3545'}"
+                v-on:click="removeAllActivites"
+        >
             Clear all
         </button>
     </div>
@@ -51,7 +53,7 @@
             return {}
         },
         methods: {
-            ...mapActions(['deleteActivity'])
+            ...mapActions(['deleteActivity', 'removeAllActivites'])
         },
         computed: {
             ...mapGetters(['activities'])

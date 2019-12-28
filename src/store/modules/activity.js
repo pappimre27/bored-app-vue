@@ -30,13 +30,18 @@ const actions = {
         commit('filterActivity', id);
         // eslint-disable-next-line no-console
         console.log(id);
+    },
+    removeAllActivites({commit}) {
+        commit('deleteAll');
     }
+
 };
 
 const mutations = {
     setRandomActivity: (state, activity) => (state.current = activity),
     addActivity: (state, activity) => state.activities.unshift(activity),
-    filterActivity: (state, id) => state.activities = state.activities.filter(activity => activity.id !== id)
+    filterActivity: (state, id) => state.activities = state.activities.filter(activity => activity.id !== id),
+    deleteAll: (state) => state.activities = []
 };
 
 export default {
