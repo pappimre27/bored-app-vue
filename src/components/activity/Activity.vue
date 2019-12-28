@@ -1,5 +1,5 @@
 <template>
-    <form class='grid-2'>
+    <form class='grid-2' method="post">
         <div class='flex-container'>
             <h3>You should</h3>
             <textarea
@@ -58,6 +58,7 @@
                     type='submit'
                     v-bind:style="{marginTop: '1rem'}"
                     value='Hit me with a new one!'
+                    v-on:click.prevent="newActivity"
             />
         </div>
     </form>
@@ -111,6 +112,10 @@
                     value
                 }
                 await this.fetchByValue(parameters);
+                this.setCurrent();
+            },
+            async newActivity() {
+                await this.fetchRandom();
                 this.setCurrent();
             }
         },
