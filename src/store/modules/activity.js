@@ -10,8 +10,6 @@ const getters = {
     current: (state) => state.current,
     activities: (state) => state.activities,
     error: (state) => state.error,
-    // eslint-disable-next-line no-unused-vars
-    activityById: (state) => id => state.activities.find(activity => activity.id == id)
 };
 
 const actions = {
@@ -19,9 +17,9 @@ const actions = {
         try {
             const response = await axios.get('https://www.boredapi.com/api/activity');
             commit('setRandomActivity', response.data);
-        } catch (e) {
+        } catch (err) {
             // eslint-disable-next-line no-console
-            console.log(e);
+            console.error(err);
         }
     },
     async fetchByValue({commit}, values) {
@@ -30,8 +28,6 @@ const actions = {
             const response = await axios.get(`https://www.boredapi.com/api/activity?${name}=${value}`);
             if (response.data.hasOwnProperty('error')) {
                 const {error} = response.data;
-                // eslint-disable-next-line no-console
-                console.log(error);
                 commit('setError', error);
                 setTimeout(() => commit('setError', null), 5000);
             } else {
@@ -43,14 +39,10 @@ const actions = {
         }
     },
     saveActivity({commit}, activity) {
-        // eslint-disable-next-line no-console
-        console.log(activity);
         commit('addActivity', activity);
     },
     deleteActivity({commit}, id) {
         commit('filterActivity', id);
-        // eslint-disable-next-line no-console
-        console.log(id);
     },
     removeAllActivites({commit}) {
         commit('deleteAll');

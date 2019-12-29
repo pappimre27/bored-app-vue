@@ -101,8 +101,6 @@
             ...mapActions(['fetchRandom', 'saveActivity', 'fetchByValue']),
             saveForLater() {
                 const {activityDesc, type, participants, price} = this.$data;
-                // eslint-disable-next-line no-console
-                // console.log(this.$data);
                 const activity = {
                     id: uuid.v4(),
                     activityDesc,

@@ -1,15 +1,16 @@
 <template>
-    <div class="text-center">
-        <div class="card bg-light">
-            <h3>{{activity.activityDesc}}</h3>
-            <hr>
-            <p>Type: {{activity.type}}</p>
-            <p>Participants: {{activity.participants}}</p>
-            <p>Budget:
-                <span v-if="activity.price <= 0.5">Cheap</span>
-                <span v-else>Expensive</span>
-            </p>
-        </div>
+    <div class="flex-container" v-if="activity">
+        <h3 class="datas">
+            {{activity.activityDesc}}
+        </h3>
+        <ul>
+            <li>Type: <span class="desc">{{activity.type}}</span></li>
+            <li>Participants: <span class="desc">{{activity.participants}}</span></li>
+            <li>Budget:
+                <span class="desc" v-if="activity.price <= 0.5">Cheap</span>
+                <span class="desc" v-else>Expensive</span>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -28,16 +29,47 @@
             ...mapGetters['activities', 'activityById']
         },
         created() {
-            // this.activity = this.activities.find(activity => activity.id === this.id);
-            //  eslint-disable-next-line no-console
-            // eslint-disable-next-line no-console
-            console.log(this.activities);
-            this.activity = this.$store.getters.activities
-                .find(activity => activity.id == this.$route.params.id);
+            if (this.$store.getters.activities) {
+                this.activity = this.$store.getters.activities
+                    .find(activity => activity.id == this.$route.params.id);
+            }
+
         },
     }
 </script>
 
 <style scoped>
+    .datas {
+        text-align: center;
+    }
 
+    ul {
+        margin-top: 2rem;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    ul li {
+        display: flex;
+        width: 200px;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+
+    .flex-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .desc {
+        padding: 0 0.5rem;
+        letter-spacing: 1px;
+        background-color: var(--primary-color);
+        color: #f4f4f4;
+    }
 </style>

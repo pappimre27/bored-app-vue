@@ -50,7 +50,6 @@
 
 
     @media (max-width: 700px) {
-        /* Navbar */
         .navbar {
             display: block;
             text-align: center;

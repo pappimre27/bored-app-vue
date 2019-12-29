@@ -9,8 +9,6 @@
             <tr>
                 <th>#</th>
                 <th>Activity</th>
-                <!--                <th>Participants</th>-->
-                <!--                <th>Budget</th>-->
                 <th>Delete</th>
             </tr>
             </thead>
@@ -24,9 +22,6 @@
                         {{activity.activityDesc}}
                     </router-link>
                 </td>
-                <!--                <td>{{activity.participants}}</td>-->
-                <!--                <td v-if="activity.price <= 0.5">{{'cheap'}}</td>-->
-                <!--                <td v-else>{{'Expensive'}}</td>-->
                 <td>
                     <i
                             class='fa fa-check-circle'
