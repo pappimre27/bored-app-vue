@@ -26,15 +26,13 @@
             }
         },
         computed: {
-            ...mapGetters['activities', 'activityById']
+            ...mapGetters(['activities'])
         },
         created() {
-            if (this.$store.getters.activities) {
-                this.activity = this.$store.getters.activities
-                    .find(activity => activity.id == this.$route.params.id);
+            if (this.activities) {
+                this.activity = this.activities.find(activity => activity.id == this.$route.params.id);
             }
-
-        },
+        }
     }
 </script>
 

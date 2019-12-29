@@ -70,7 +70,6 @@
 <script>
     import {mapActions, mapGetters} from 'vuex';
     import uuid from 'uuid';
-    import setActivity from "../../mixins/setActivity";
     import Alert from "../layout/Alert";
 
     export default {
@@ -122,6 +121,13 @@
             async newActivity() {
                 await this.fetchRandom();
                 this.setCurrent();
+            },
+            setCurrent() {
+                const {activity, type, participants, price} = this.current;
+                this.activityDesc = activity;
+                this.type = type;
+                this.participants = participants;
+                this.price = price;
             }
         },
         computed: {
@@ -133,8 +139,7 @@
         },
         beforeMount() {
             this.activityTypes.filter(activity => activity !== this.type);
-        },
-        mixins: [setActivity]
+        }
     }
 </script>
 
